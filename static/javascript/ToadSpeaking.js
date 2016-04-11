@@ -9,6 +9,8 @@ function ToadSpeaking(speach){
 				var x = $('#story').text();
 				$('#help-text').html('');
 				$('#help-text').append('<span id="story">'+x+'</span>');
+				window[term].resume();
+
 			}
 		};
 	$('#story').text('');

@@ -26,7 +26,7 @@ $(document).ready(function() {
         var args = split.splice(1,split.length);
 
         if(current_room.commands.indexOf(command) > -1 ){ //puede ejecutar ese comando en ese directorio
-                
+                term.pause();
                 current_room[command](args,term);
                 //REFACTORIZAR
 
@@ -48,8 +48,11 @@ $(document).ready(function() {
     
     // Clear history on page reload
     $("#term").terminal().history().clear();
+    // empieza bloqueada la terminal hasta que habla toad
+    $("#term").terminal().pause()
     //Give term focus (Fixes weird initial draw issue)
     $("#term").click();
+    window[term] = $("#term").terminal();
     //Tab Completion FOR LAST ARGUMENT
     $(window).keyup(function(event){
         if(event.keyCode == 9){
