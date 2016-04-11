@@ -133,6 +133,7 @@ Room.prototype.cd = function(args, term){
 	switch (args.length) {
 		case 0:
 			enterRoom(mario);
+			term.pause();
 			ToadSpeaking(["Y ahora volviste a mario"]);
 			break;
 		case 1:
@@ -140,18 +141,22 @@ Room.prototype.cd = function(args, term){
 				case "..":
 					if (this.parents.length >= 1){
 			            enterRoom(this.parents[0]);
+			            term.pause();
 						ToadSpeaking(["Te moviste a " + current_room.room_name + ".\n" + current_room.intro_text]);
 					} else {
 						//esta en root hijo de puta
+						term.pause();
 						ToadSpeaking(["Ey! Estás en el root, no podés ir más atrás que eso"]);
 					}
 					break;
 				case "~":
 					enterRoom(home);
+					term.pause();
 					ToadSpeaking(["Y ahora estás en home"]);
 					break;
 				case ".":
 					enterRoom(current_room);
+					term.pause();
 					ToadSpeaking(["Te moviste a " + current_room.room_name + ".\n" + current_room.intro_text]);
 					break;
 				default:
@@ -164,8 +169,10 @@ Room.prototype.cd = function(args, term){
 			                if ((room.room_name === "castillo") && (room_from === "mundo_desierto")){
 			                	state.applyState("EndOfGame");
 			                }
+			                term.pause();
 							ToadSpeaking(["Te moviste a " + current_room.room_name + ".\n" + current_room.intro_text]);
 						} else {
+							term.pause();
 							ToadSpeaking(["Este mundo todavía no está habilitado. Para que se habilite ganá el mundo anterior."]);							
 						}
 					}
@@ -184,6 +191,7 @@ Room.prototype.cd = function(args, term){
 
 Room.prototype.cat = function(args,term){
 	if (args.length < 1){
+		term.pause();
 		ToadSpeaking(["Necesitás decir a qué archivo le querés hacer cat."]);
 	} else {
 		var file = state.validate_file(args[0],this);
@@ -209,6 +217,7 @@ Room.prototype.scp = function(args,term){
                             if (command.match("tengoelpoder")) {
                                 term.echo('1.bomba                                 100%   217     0.2KB/s      00:00');
                                 state.applyState("bombaSentToKoopa");
+                                term.pause();
                                 ToadSpeaking(["Mataste a Koopa en el host 192.168.0.13. Se habilitó el acceso al castillo dentro de este mundo, ingresá al mismo para encontrar a la princesa."]);
                                 term.pop();
                                 history.enable();
@@ -252,6 +261,7 @@ Room.prototype.scp = function(args,term){
                 }
 	}
 	else {
+		term.pause();
 		ToadSpeaking["No podés ejecutar este comando en este directorio."];
 	}
 };
@@ -281,6 +291,7 @@ Room.prototype.mkdir = function(args,term){
 				if ((this.getChildFromName(args[i])) === -1) {
 					var room_name_to_make = args[i];
 					state.create_new_room(room_name_to_make, this);
+					term.pause();
 					ToadSpeaking(["Creaste el directorio " + args[i] + ". "]);
 				}
 				else {
@@ -290,6 +301,7 @@ Room.prototype.mkdir = function(args,term){
 		}		
 	}
 	else {
+		term.pause();
 		ToadSpeaking["No podés ejecutar este comando en este directorio."];
 	}
 };
@@ -340,18 +352,22 @@ Room.prototype.mv = function(args,term){
 					if (state.is_end_of_world(this)) {
 						switch(this.room_name) {
 							case "mundo_nube":
-								state.applyState("EndMundoNube");								
+								state.applyState("EndMundoNube");
+								term.pause();								
 								ToadSpeaking(["Moviste todos los archivos ." + type_of_file + " a " + args[1] + ". Terminaste el primer mundo!, king boo aparecerá y deberás eliminarlo para desbloquear el próximo mundo."]);
 								break;
 							case "mundo_hongo":
 								state.applyState("EndMundoHongo");
+								term.pause();
 								ToadSpeaking(["Moviste todos los archivos ." + type_of_file + " a " + args[1] + ". Terminaste el mundo hongo!, wario aparecerá y deberás eliminarlo para desbloquear el mundo desierto."]);
 								break;		
 						}	
-					}	
+					}
+					term.pause();	
 					ToadSpeaking(["Moviste todos los archivos ." + type_of_file + " a " + args[1] + "."]);
 				}
 				else {
+					term.pause();
 					ToadSpeaking(["Elegí archivo/s y un directorio validos para moverlos."]);
 				}
 		}		
@@ -362,6 +378,7 @@ Room.prototype.mv = function(args,term){
 				itemtoadd = this.items[this.itemStringArray().indexOf(args[0])];			
 				this.children[this.childrenStringArray().indexOf(args[1])].addItem(itemtoadd);
 				this.removeItem(args[0]);
+				term.pause();
 				ToadSpeaking(["Moviste " + args[0] + " a " + args[1] + "."]);
 			}					
 			else {
@@ -385,6 +402,7 @@ Room.prototype.rm = function(args,term){
 						for (var j = 0; j < files_to_remove.length; j++) {
 						  	 this.removeItem(files_to_remove[j]);
 						}
+						term.pause();
 						ToadSpeaking(["Eliminaste todos los archivos ." + type_of_file + ". "]);
 					}
 					else {
@@ -395,8 +413,10 @@ Room.prototype.rm = function(args,term){
 				if (this.getItemFromName(args[0]) != -1){
 					if (this.getItemFromName(args[0]).valid_cmds.indexOf("rm") > 0){
 						this.removeItem(args[0]);
+						term.pause();
 						ToadSpeaking(["Borraste el archivo " + args[0] + " "]);
 					} else {
+						term.pause();
 						ToadSpeaking(["No podés eliminar el archivo " + args[0] + ". "]);
 					}
 				} else {
@@ -424,15 +444,18 @@ Room.prototype.rmdir = function(args,term){
 						//existe la carpeta dentro del directorio
 						this.removeChild(args[0]);
 						if ((args[0] == "king_boo") && this.room_name == "mundo_nube") {
-							this.ev.fire("KingBooRemoved");	
+							this.ev.fire("KingBooRemoved");
+							term.pause();	
 							ToadSpeaking(["Eliminaste el directorio " + args[0] + ", se habilitó el mundo_hongo para que puedas jugarlo."]);						
 						}
 						else {
 							if ((args[i] == "wario") && this.room_name == "mundo_hongo") {
 								this.ev.fire("WarioRemoved");
+								term.pause();
 								ToadSpeaking(["Eliminaste el directorio " + args[0] + ", se habilitó el mundo_desierto para que puedas jugarlo."]);	
 							}
 							else {
+								term.pause();
 								ToadSpeaking(["Eliminaste el directorio " + args[0] + ". "]);									
 							}
 						}							
@@ -450,6 +473,7 @@ Room.prototype.rmdir = function(args,term){
 		}		
 	}
 	else {
+		term.pause();
 		ToadSpeaking["No podés ejecutar este comando en este directorio."];
 	}
 };
@@ -467,6 +491,7 @@ Room.prototype.grep = function(args,term){
 		}
 	}
 	else {
+		term.pause();
 		ToadSpeaking["No podés ejecutar este comando en este directorio."];		
 	}
 };
@@ -474,6 +499,7 @@ Room.prototype.grep = function(args,term){
 Room.prototype.head = function(args,term){
 	switch (args.length) {
 		case 0:
+			term.pause();
 			ToadSpeaking(["Neceistás especificarle al menos un parámetro a head. Para entender el comando ejecutá 'man head'"]);
 			break;
 		case 1:
@@ -495,11 +521,13 @@ Room.prototype.head = function(args,term){
 				term.echo(concat_first_n_lines(array_of_lines,number_of_lines));
 				//devolver prinras n lineas de file to read
 			}
-			else {		
+			else {
+				term.pause();		
 				ToadSpeaking(["Revisá la sintaxis de head consultando el man."]);		
 			} 
 			break;
 		default:
+			term.pause();
 			ToadSpeaking(["chechu todavia no implemento headear varios archivos, no jodás"]);
 			break;
 	}
@@ -510,6 +538,7 @@ Room.prototype.head = function(args,term){
 Room.prototype.tail = function(args,term){
 	switch (args.length) {
 		case 0:
+			term.pause();
 			ToadSpeaking(["Neceistás especificarle al menos un parámetro a tail. Para entender el comando ejecutá 'man tail'"]);
 			break;
 		case 1:
@@ -531,11 +560,13 @@ Room.prototype.tail = function(args,term){
 				term.echo(concat_last_n_lines(array_of_lines,number_of_lines));
 				//devolver prinras n lineas de file to read
 			}
-			else {		
+			else {
+				term.pause();		
 				ToadSpeaking(["Revisá la sintaxis de tail consultando el man."]);		
 			} 
 			break;
 		default:
+			term.pause();
 			ToadSpeaking(["chechu todavia no implemento tailear varios archivos, no jodás"]);
 			break;
 	}
@@ -583,11 +614,13 @@ Room.prototype.cp = function(args,term){
 								this.ev.addListener("WarioRemoved", function(){
 		    						state.applyState("WarioRemoved");	
 								});
+								term.pause();
 								ToadSpeaking(["Copiaste " + item_to_copy_name + " al directorio " + location_dir + ".\n" + "Terminaste el mundo hongo!, wario aparecerá y deberás eliminarlo para desbloquear el mundo desierto."]);	
 								break;		
 						}
 				}
 				else {
+					term.pause();
 					ToadSpeaking(["Copiaste " + item_to_copy_name + " al directorio " + location_dir + "."]);					
 				}
 

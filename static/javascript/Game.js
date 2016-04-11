@@ -26,7 +26,7 @@ $(document).ready(function() {
         var args = split.splice(1,split.length);
 
         if(current_room.commands.indexOf(command) > -1 ){ //puede ejecutar ese comando en ese directorio
-                term.pause();
+                
                 current_room[command](args,term);
                 //REFACTORIZAR
 
