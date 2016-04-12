@@ -274,7 +274,9 @@ Room.prototype.man = function(args,term){
 		if (args[0] in man_pages){
 			term.echo(man_pages[args[0]]);
 		}
-		term.echo("No existe entrada manual para " + args[0]);
+		else {
+			term.echo("No existe entrada manual para " + args[0]);
+		}	
 	}
 };
 

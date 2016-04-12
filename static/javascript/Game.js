@@ -11,7 +11,44 @@ var man_pages = {
 "mkdir": "\nEl comando mkdir, sirve para crear nuevos directorios y por lo tanto \n" + 
 "agrandar y mantener el orden en la estructura del sistema de archivos de Linux.\n\n"  +
 "El comando consta de la siguiente sintaxis: \n\n" +
-"                   mkdir -opciones directorio/s\n"
+"                   mkdir -opciones directorio/s\n",
+"rmdir": "\nEl comando rmdir, sirve para eliminar directorios vacíos y existentes. \n" + 
+"Podés especificar uno o mas directorios para eliminar, y podés expresarlos en rutas.\n\n"  +
+"absolutas o relativas. El comando consta de la siguiente sintaxis: \n\n" +
+"                   rmdir -opciones directorio/s\n",
+"rm": "\nEl comando rm, sirve para eliminar archivos o directorios. \n" + 
+"Podés especificar uno o mas archivos para eliminar, y podés expresarlos en rutas.\n\n"  +
+"absolutas o relativas. El comando consta de la siguiente sintaxis: \n\n" +
+"                   rm -opciones archivo/s\n",
+"scp": "\nEl comando scp, sirve para copiar archivos de un ordenador a otro a través de. \n" + 
+"una conexión segura y encriptada.\n\n"  +
+"Se puede utilizar scp para copiar archivos de un ordenador local a otro remoto, también\n" +
+"se puede copiar del remoto al local y también se puede copiar entre dos remotos." +
+"El comando consta de la siguiente sintaxis: \n\n" +
+"      1. Copiar un archivo local a un destino remoto:\n" +
+"         scp archivo_origen user@ip_host:/ruta_dir_destino\n\n" +
+"      2. Copiar un archivo de un ordenador remoto al ordenador local:\n" +
+"         scp user@ip_host:/ruta_archivo_origen ruta_dir_destino\n\n",
+"cp": "\nEl comando cp permite copiar archivos y directorios. \n" + 
+"El comando acepta como argumentos una fuente y un destino, de forma que el primer parámetro\n" + 
+"de cp es el nombre del archivo que hay copiar y el segundo es el lugar donde se desea guardar\n" +
+"la copia.\n\n"  +
+"El comando consta de la siguiente sintaxis: \n\n" +
+"                   cp -opciones fuente destino\n",
+"grep": "\nEl comando grep permite buscar palabras en un archivo. \n" + 
+"El comando acepta como argumentos la palabra a buscar (o un patrón) y el archivo.\n" + 
+"El comando consta de la siguiente sintaxis: \n\n" +
+"                   grep palabra archivo\n",
+"tail": "\nEl comando tail sirve para mostrar en pantalla las últimas líneas de un archivo. \n" + 
+"Por defecto se muestran las últimas 10 líneas, pero este número puede variar, según.\n\n"  +
+"como se ejecuten las opciones. Su sintaxis es la siguiente:\n\n" +
+"                   tail -opciones archivo\n" +
+"Por ejemplo, tail -2 file.txt mostrará las últimas dos líneas de file.txt\n", 
+"head": "\nEl comando head sirve para mostrar en pantalla las primeras líneas de un archivo. \n" + 
+"Por defecto se muestran las primeras 10 líneas, pero este número puede variar, según.\n\n"  +
+"como se ejecuten las opciones. Su sintaxis es la siguiente:\n\n" +
+"                   head -opciones archivo\n" +
+"Por ejemplo, head -8 file.txt mostrará las primeras ocho líneas de file.txt\n"
 }
 
 $(document).ready(function() {
