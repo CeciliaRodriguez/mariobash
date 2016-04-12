@@ -192,7 +192,7 @@ GameState.prototype.applyState = function(param_name, replay){
 			wario.removeCommand("cd");
 			mundo_hongo.addCommand("rmdir");
 			mundo_hongo.ev.addListener("WarioRemoved", function(){
-				state.applyState("WarioBooRemoved");	
+				state.applyState("WarioRemoved");	
 			});
 			break;
     	case "EndOfGame":

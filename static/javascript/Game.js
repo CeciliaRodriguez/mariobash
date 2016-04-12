@@ -78,6 +78,7 @@ $(document).ready(function() {
         greetings:"",
         exit: false,
         clear: true,
+        height: 200
         });
     
     // Clear history on page reload
