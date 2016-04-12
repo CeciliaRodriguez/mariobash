@@ -139,7 +139,7 @@ mundo_hongo.addCommand("scp");
 mundo_hongo.addCommand("mv");
 mundo_hongo.addCommand("cp");
 //inicialmente el mundo no esta habilitado
-//mundo_hongo.removeCommand("cd");
+mundo_hongo.removeCommand("cd");
 
 
 
@@ -261,7 +261,7 @@ mundo_desierto.addCommand("grep");
 mundo_desierto.addCommand("head");
 mundo_desierto.addCommand("tail");
 mundo_desierto.addCommand("scp");
-//mundo_desierto.removeCommand("cd");
+mundo_desierto.removeCommand("cd");
 mundo_desierto.addCommand("scp");
 
 /*
