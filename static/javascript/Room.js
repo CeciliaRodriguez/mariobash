@@ -7,7 +7,7 @@ function Room(roomname, introtext, roompic){
 	this.commands = ["cd", "ls", "cat", "man", "exit", "pwd"];
 	this.room_name = (typeof roomname === 'undefined') ? "Generic Room": roomname;
 	this.room_pic = (typeof roompic === 'undefined') ? "./static/img/none.gif": "./static/img/" + roompic;
-	this.intro_text = (typeof introtext === 'undefined') ? "This is a simple room": introtext;
+	this.intro_text = (typeof introtext === 'undefined') ? "": introtext;
 	this.cmd_text = {};
 	//for event handling
 	this.ev = new EventTarget();
@@ -377,6 +377,16 @@ Room.prototype.mv = function(args,term){
 				itemtoadd = this.items[this.itemStringArray().indexOf(args[0])];			
 				this.children[this.childrenStringArray().indexOf(args[1])].addItem(itemtoadd);
 				this.removeItem(args[0]);
+				if (state.is_end_of_world(this)) {
+					switch(this.room_name) {
+						case "mundo_nube":
+							state.applyState("EndMundoNube");
+							break;
+						case "mundo_hongo":
+							state.applyState("EndMundoHongo");
+							break;		
+					}	
+				}
 				term.pause();
 				ToadSpeaking(["Moviste " + args[0] + " a " + args[1] + "."]);
 			}					
@@ -447,7 +457,7 @@ Room.prototype.rmdir = function(args,term){
 							ToadSpeaking(["Eliminaste el directorio " + args[0] + ", se habilitó el mundo_hongo para que puedas jugarlo."]);						
 						}
 						else {
-							if ((args[i] == "wario") && this.room_name == "mundo_hongo") {
+							if ((args[0] == "wario") && this.room_name == "mundo_hongo") {
 								this.ev.fire("WarioRemoved");
 								term.pause();
 								ToadSpeaking(["Eliminaste el directorio " + args[0] + ", se habilitó el mundo_desierto para que puedas jugarlo."]);	
@@ -595,21 +605,14 @@ Room.prototype.cp = function(args,term){
 				newItem.cmd_text = item_to_copy.cmd_text;
 				newItem.valid_cmds = item_to_copy.valid_cmds;
 				location_dir.addItem(newItem);
-
 				if (state.is_end_of_world(this)) {
-						switch(this.room_name) {
-							case "mundo_hongo":
-								var wario = new Room("wario","COMPLETAR","koopa.gif");
-								link_rooms(this, wario);
-								wario.removeCommand("cd");
-								this.addCommand("rmdir");
-								this.ev.addListener("WarioRemoved", function(){
-		    						state.applyState("WarioRemoved");	
-								});
-								term.pause();
-								ToadSpeaking(["Copiaste " + item_to_copy_name + " al directorio " + location_dir + ".\n" + "Terminaste el mundo hongo!, wario aparecerá y deberás eliminarlo para desbloquear el mundo desierto."]);	
-								break;		
-						}
+					switch(this.room_name) {
+						case "mundo_hongo":
+							state.applyState("EndMundoHongo");
+							break;		
+					}
+					term.pause();
+					ToadSpeaking(["Copiaste " + item_to_copy_name + " al directorio " + location_dir + "."]);		
 				}
 				else {
 					term.pause();
