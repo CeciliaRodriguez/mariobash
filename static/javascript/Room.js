@@ -144,7 +144,6 @@ Room.prototype.cd = function(args, term){
 			            term.pause();
 						ToadSpeaking(["Te moviste a " + current_room.room_name + ".\n" + current_room.intro_text]);
 					} else {
-						//esta en root hijo de puta
 						term.pause();
 						ToadSpeaking(["Ey! Estás en el root, no podés ir más atrás que eso"]);
 					}
@@ -160,7 +159,6 @@ Room.prototype.cd = function(args, term){
 					ToadSpeaking(["Te moviste a " + current_room.room_name + ".\n" + current_room.intro_text]);
 					break;
 				default:
-					//rutas absolutas y relativas! vamo' lo' pibe'
 					var room = state.validate_route(args[0],this);
 					var room_from = current_room.room_name;					
 					if (room != false) {
@@ -287,7 +285,6 @@ Room.prototype.mkdir = function(args,term){
 		}
 		else {
 			for (var i = 0; i < args.length; i++){
-				//chequeo que el directorio no este creado ya
 				if ((this.getChildFromName(args[i])) === -1) {
 					var room_name_to_make = args[i];
 					state.create_new_room(room_name_to_make, this);
@@ -441,7 +438,6 @@ Room.prototype.rmdir = function(args,term){
 				break;
 			case 1:
 				if ((this.getChildFromName(args[0])) != -1) {
-						//existe la carpeta dentro del directorio
 						this.removeChild(args[0]);
 						if ((args[0] == "king_boo") && this.room_name == "mundo_nube") {
 							this.ev.fire("KingBooRemoved");
@@ -461,7 +457,6 @@ Room.prototype.rmdir = function(args,term){
 						}							
 				}
 				else {
-					//no existe la carpeta dentro del directorio
 					term.echo("rmdir: fallo al borrar «" + args[i] + "»: No existe el archivo o el directorio\n");
 				}		
 				break;
@@ -505,7 +500,6 @@ Room.prototype.head = function(args,term){
 		case 1:
 			var file_to_read = state.validate_file(args[0], this);
 			if (file_to_read != false) {
-				//devolver primeras 10 lineas de file to read
 				var array_of_lines = file_to_read.cmd_text["cat"].split("\n");
 				term.echo(concat_first_n_lines(array_of_lines,10));
 			}
@@ -519,7 +513,6 @@ Room.prototype.head = function(args,term){
 				var array_of_lines = file_to_read.cmd_text["cat"].split("\n");
 				var number_of_lines = args[0].substr(1);
 				term.echo(concat_first_n_lines(array_of_lines,number_of_lines));
-				//devolver prinras n lineas de file to read
 			}
 			else {
 				term.pause();		
@@ -528,7 +521,7 @@ Room.prototype.head = function(args,term){
 			break;
 		default:
 			term.pause();
-			ToadSpeaking(["chechu todavia no implemento headear varios archivos, no jodás"]);
+			ToadSpeaking(["Por ahora no podés headear varios files"]);
 			break;
 	}
 
@@ -544,7 +537,6 @@ Room.prototype.tail = function(args,term){
 		case 1:
 			var file_to_read = state.validate_file(args[0], this);
 			if (file_to_read != false) {
-				//devolver ultimas 10 lineas de file to read
 				var array_of_lines = file_to_read.cmd_text["cat"].split("\n");
 				term.echo(concat_last_n_lines(array_of_lines,10));
 			}
@@ -558,7 +550,6 @@ Room.prototype.tail = function(args,term){
 				var array_of_lines = file_to_read.cmd_text["cat"].split("\n");
 				var number_of_lines = args[0].substr(1);
 				term.echo(concat_last_n_lines(array_of_lines,number_of_lines));
-				//devolver prinras n lineas de file to read
 			}
 			else {
 				term.pause();		
@@ -567,7 +558,7 @@ Room.prototype.tail = function(args,term){
 			break;
 		default:
 			term.pause();
-			ToadSpeaking(["chechu todavia no implemento tailear varios archivos, no jodás"]);
+			ToadSpeaking(["Por ahora no podés tailear varios files"]);
 			break;
 	}
 
@@ -593,7 +584,6 @@ Room.prototype.cp = function(args,term){
 			var location_dir = state.validate_route(args[1]);
 
 			if (item_to_copy === -1) {
-				// el archivo no existe
 				term.echo("mv: no se puede efectuar ´stat´ sobre «" + args[0] + "»: No existe el archivo o el directorio");
 			}
 
@@ -650,7 +640,7 @@ Room.prototype.pwd = function(args,term){
     }
 };
 
-//VOLAR A LA GARCHA
+//VOLAR, VOLAR, VOLAR
 	
 /*Checks if arg can be reached from this room
 * Returns the room if it can

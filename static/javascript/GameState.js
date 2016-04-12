@@ -27,7 +27,6 @@ GameState.prototype.getState = function(){
 GameState.prototype.validate_route = function(absolute_route,parent){
 	var directories = absolute_route.split("/");
 	if (absolute_route.charAt(0) === "/") {
-		//es ruta absoluta
 		directories[0] = root;
 	}
 	for (index = 0, len = directories.length - 1; index < len; ++index) {
@@ -79,11 +78,9 @@ GameState.prototype.change_prompt = function(term){
 GameState.prototype.validate_file = function(absolute_route, parent){
 	var directories = absolute_route.split("/");
 	if (absolute_route.charAt(0) === "/") {
-		//cuelga del root
 		directories[0] = root;
 	}
 	if (directories.length === 1) {
-		//es solo un archivo
 		if (parent.getItemFromName(absolute_route) === -1){
 			return false;
 		}

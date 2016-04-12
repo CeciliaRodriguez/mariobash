@@ -14,7 +14,6 @@ var man_pages = {
 "                   mkdir -opciones directorio/s\n"
 }
 
-
 $(document).ready(function() {
 
     $('#term').terminal(function(input, term) {
@@ -25,10 +24,9 @@ $(document).ready(function() {
 
         var args = split.splice(1,split.length);
 
-        if(current_room.commands.indexOf(command) > -1 ){ //puede ejecutar ese comando en ese directorio
+        if(current_room.commands.indexOf(command) > -1 ){
                 
                 current_room[command](args,term);
-                //REFACTORIZAR
 
                     if (command in current_room.cmd_text){
                          term.echo(current_room.cmd_text[command]);                  
@@ -37,18 +35,17 @@ $(document).ready(function() {
         else{
             term.echo("Command '"+command+"' not found in room '"+current_room.room_name+"'");
         }
-    }, { history: true,                     // Keep user's history of commands
-        prompt: 'mario@utnso:~$ ',                        // Text that prefixes terminal entries
-        name: 'Mario-Comando',          // Name of terminal
-                                            // Signiture to include at top of terminal
+    }, { history: true,                
+        prompt: 'mario@utnso:~$ ',     
+        name: 'Mario-Comando',         
         greetings:"",
-        exit: false,                        // Disable 'exit' command
-        clear: true,                       // Disable 'clear' command
+        exit: false,
+        clear: true,
         });
     
     // Clear history on page reload
     $("#term").terminal().history().clear();
-    // empieza bloqueada la terminal hasta que habla toad
+    // terminal starts blocked until toad finishes
     $("#term").terminal().pause()
     //Give term focus (Fixes weird initial draw issue)
     $("#term").click();
@@ -104,7 +101,6 @@ $(document).ready(function() {
                             first_arg == "mv" ||
                             first_arg == "cat" ||
                             first_arg == "grep" ||
-                            first_arg == "less" ||
                             first_arg == "touch" ||
                             first_arg == "rm" ||
                             first_arg == "sudo")
