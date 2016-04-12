@@ -30,10 +30,16 @@ GameState.prototype.validate_route = function(absolute_route,parent){
 		directories[0] = root;
 	}
 	for (index = 0, len = directories.length - 1; index < len; ++index) {
-    	directory = eval(directories[index]);
-    	if ((directory.getChildFromName(directories[index+1])) === -1) {
-    		return false;
-    	};
+		try {
+		    directory = eval(directories[index]);
+		} catch (e) {
+		    if (e instanceof SyntaxError) {
+		        return false;
+		    }
+		}
+		if ((directory.getChildFromName(directories[index+1])) === -1) {
+			return false;
+		};
 	}
 	if (directories.length === 1) {
 		if (parent.getChildFromName(absolute_route) === -1){
