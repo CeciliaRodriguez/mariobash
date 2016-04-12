@@ -42,13 +42,13 @@ mario.addCommand("less");
 
 //DONKEY KONG
 var donkey_kong = new Room("donkey_kong",
-    "COMPLETAR",
+    "  ",
     "mario.gif");
 donkey_kong.addCommand("cat");
 
 //YOSHI
 var yoshi = new Room("yoshi",
-    "COMPLETAR",
+    "  ",
     "mario.gif");
 donkey_kong.addCommand("cat");
 
@@ -85,7 +85,7 @@ mundo_nube.addCommand("mkdir");
 
 //COFRE
 var cofre = new Room("cofre",
-    "COMPLETAR",
+    "  ",
     "mario.gif");
 
 //MUNDO HONGO
@@ -255,7 +255,7 @@ $$$ $$$ $$$$ $$$$ $$$$$ $$$$$$ $$$$$$ $$$$ $$$$$ $$$$$ $$$$$ $$$$$$$\n\
 $$$$ $$$$$$ $$$$$$$ $$$$$$user:root password:tengoelpoder$$$$$ $$$$$$\n\
 $$$ $$$ $$$$ $$$$ $$$$$ $$$$$$ $$$$$$ $$$$ $$$$$ $$$$$ $$$$$ $$$$$$$\n");
 mundo_desierto.addItem(koopa_ubicacion);
-var castillo = new Room("castillo","COMPLETAR","mundo_nube.gif");
+var castillo = new Room("castillo","  ","mundo_nube.gif");
 castillo.removeCommand("cd");
 mundo_desierto.addCommand("grep");
 mundo_desierto.addCommand("head");

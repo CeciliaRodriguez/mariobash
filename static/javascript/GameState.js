@@ -184,18 +184,14 @@ GameState.prototype.applyState = function(param_name, replay){
 			mundo_desierto.addCommand("cd");
     		break;
     	case "EndMundoNube":
-    		var king_boo = new Room("king_boo","COMPLETAR","koopa.gif");
-			link_rooms(mundo_nube, king_boo);
-			king_boo.removeCommand("cd");
+    		state.create_new_room("king_boo", mundo_nube);
 			mundo_nube.addCommand("rmdir");
 			mundo_nube.ev.addListener("KingBooRemoved", function(){
 				state.applyState("KingBooRemoved");	
 			});
 			break;
 		case "EndMundoHongo":
-			var wario = new Room("wario","COMPLETAR","koopa.gif");
-			link_rooms(mundo_hongo, wario);
-			wario.removeCommand("cd");
+			state.create_new_room("wario", mundo_hongo);
 			mundo_hongo.addCommand("rmdir");
 			mundo_hongo.ev.addListener("WarioRemoved", function(){
 				state.applyState("WarioRemoved");	
