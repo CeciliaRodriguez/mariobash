@@ -17,7 +17,7 @@ var home = new Room("home",
 var mario = new Room("mario",
     "Lee la carta de bienvenida para empezar.",
     "mario.gif");
-var carta_de_bienvenida = new Item("carta_de_bienvenida", "\n¡Bienvenido a Mario-COMANDO! \n\n" + 
+var carta_de_bienvenida = new Item("carta_de_bienvenida", "\n¡Bienvenido a MarioBash! \n\n" + 
         "Peach necesita que la rescaten, para lograrlo deberás ganar los tres mundos que se encuentran en /home/mario \n\n"  +
         "En cada mundo se encuentran las instrucciones para ganarlo. Para leerlas utilizá el comando \"cat instrucciones.txt\" \n\n" +
         "Mirá lo que hay dentro de cada directorio ejecutando \"ls\" (los directorios se verán azules y los archivos blancos). \n" +
@@ -26,7 +26,7 @@ var carta_de_bienvenida = new Item("carta_de_bienvenida", "\n¡Bienvenido a Mari
         "Para volver un directorio hacia atrás usá \"cd ..\" y si no te acordás donde estás podés saberlo con \"pwd\". \n\n" +
         "Acordate que siempre podés consultar por un comando escribiendo \"man <comando>\" \n\n" + 
         "¡Vamos! Peach te está esperando.\n");
-carta_de_bienvenida.addCmdText("cat","¡Bienvenido a Mario-COMANDO! \n\n" + 
+carta_de_bienvenida.addCmdText("cat","¡Bienvenido a MarioBash! \n\n" + 
         "Peach necesita que la rescaten, para lograrlo deberás ganar los tres mundos que se encuentran en /home/mario \n\n"  +
         "En cada mundo se encuentran las instrucciones para ganarlo. Para leerlas utilizá el comando \"cat instrucciones.txt\" \n\n" +
         "Mirá lo que hay dentro de cada directorio ejecutando \"ls\" (los directorios se verán azules y los archivos blancos). \n" +

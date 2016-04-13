@@ -1,7 +1,7 @@
 function ToadSpeaking(speach){
 	var options = {
 			strings: speach,
-			typeSpeed: 0,
+			typeSpeed: 20,
             showCursor: false,
             backDelay: 500,
             contentType: 'html',
