@@ -61,6 +61,15 @@ GameState.prototype.create_new_room = function(name_room,parent){
   //eval("window." + name_room + " = " + new_room + ";");	
 };
 
+GameState.prototype.add_item = function(name_room){
+	var hola = new Item("hola.txt",
+    "hola hola hola 1 2 3 out",
+    "mundo_nube.gif");
+    hola.addValidCmd("rm");
+    window[name_room].addItem(hola);
+    window[name_room].addCommand("rm");
+};
+
 GameState.prototype.change_prompt = function(term){
 	var current_path = "/" + this.getCurrentRoom().parents.toString().replaceAll(",", "/") + "/" + this.getCurrentRoom().room_name;
                                     
@@ -184,7 +193,7 @@ GameState.prototype.applyState = function(param_name, replay){
 			mundo_desierto.addCommand("cd");
     		break;
     	case "EndMundoNube":
-    		state.create_new_room("king_boo", mundo_nube);
+    		state.create_new_room("king_boo", mundo_nube);    		
 			mundo_nube.addCommand("rmdir");
 			mundo_nube.ev.addListener("KingBooRemoved", function(){
 				state.applyState("KingBooRemoved");	
@@ -192,6 +201,7 @@ GameState.prototype.applyState = function(param_name, replay){
 			break;
 		case "EndMundoHongo":
 			state.create_new_room("wario", mundo_hongo);
+			state.add_item("wario");
 			mundo_hongo.addCommand("rmdir");
 			mundo_hongo.ev.addListener("WarioRemoved", function(){
 				state.applyState("WarioRemoved");	

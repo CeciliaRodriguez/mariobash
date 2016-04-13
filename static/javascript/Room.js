@@ -171,7 +171,12 @@ Room.prototype.cd = function(args, term){
 							ToadSpeaking(["Te moviste a " + current_room.room_name + ".\n" + current_room.intro_text]);
 						} else {
 							term.pause();
-							ToadSpeaking(["Este mundo todavía no está habilitado. Para que se habilite ganá el mundo anterior."]);							
+							if (room.room_name === "castillo") {
+								ToadSpeaking(["No podés entrar al castillo hasta que no mates a koopa copiandole la bomba."]);	
+							}
+							else {
+								ToadSpeaking(["Este mundo todavía no está habilitado. Para que se habilite ganá el mundo anterior."]);	
+							}													
 						}
 					}
 					else {
@@ -405,7 +410,7 @@ Room.prototype.rm = function(args,term){
 		case 1:
 			var first_two_chars = args[0].charAt(0) + args[0].charAt(1);
 			if (first_two_chars == "*.") {
-					var type_of_file =  args[0].substr(2, args[0].length);
+					var type_of_file = [0].substr(2, args[0].length);
 					var files_to_remove = this.itemStringArray().filter(is_type_of_file.bind(null,type_of_file));					
 					if (files_to_remove.length > 0) {
 						for (var j = 0; j < files_to_remove.length; j++) {
@@ -450,23 +455,28 @@ Room.prototype.rmdir = function(args,term){
 				break;
 			case 1:
 				if ((this.getChildFromName(args[0])) != -1) {
-						this.removeChild(args[0]);
-						if ((args[0] == "king_boo") && this.room_name == "mundo_nube") {
-							this.ev.fire("KingBooRemoved");
-							term.pause();	
-							ToadSpeaking(["Eliminaste el directorio " + args[0] + ", se habilitó el mundo_hongo para que puedas jugarlo."]);						
+						if (this.getChildFromName(args[0]).items.length > 0) {
+							term.echo("rmdir: fallo al borrar «" + args[0] + "»: El directorio no está vacío\n");	
 						}
 						else {
-							if ((args[0] == "wario") && this.room_name == "mundo_hongo") {
-								this.ev.fire("WarioRemoved");
-								term.pause();
-								ToadSpeaking(["Eliminaste el directorio " + args[0] + ", se habilitó el mundo_desierto para que puedas jugarlo."]);	
+							this.removeChild(args[0]);
+							if ((args[0] == "king_boo") && this.room_name == "mundo_nube") {
+								this.ev.fire("KingBooRemoved");
+								term.pause();	
+								ToadSpeaking(["Eliminaste el directorio " + args[0] + ", se habilitó el mundo_hongo para que puedas jugarlo."]);						
 							}
 							else {
-								term.pause();
-								ToadSpeaking(["Eliminaste el directorio " + args[0] + ". "]);									
+								if ((args[0] == "wario") && this.room_name == "mundo_hongo") {
+									this.ev.fire("WarioRemoved");
+									term.pause();
+									ToadSpeaking(["Eliminaste el directorio " + args[0] + ", se habilitó el mundo_desierto para que puedas jugarlo."]);	
+								}
+								else {
+									term.pause();
+									ToadSpeaking(["Eliminaste el directorio " + args[0] + ". "]);									
+								}
 							}
-						}							
+						}					
 				}
 				else {
 					term.echo("rmdir: fallo al borrar «" + args[i] + "»: No existe el archivo o el directorio\n");
@@ -612,14 +622,17 @@ Room.prototype.cp = function(args,term){
 							break;		
 					}
 					term.pause();
-					ToadSpeaking(["Copiaste " + item_to_copy_name + " al directorio " + location_dir + "."]);		
+					ToadSpeaking(["Copiaste " + item_to_copy_name + " al directorio " + location_dir + ". Wario aparecerá como directorio con un archivo adentro, eliminá el directorio para que se habilite el mundo desierto."]);		
 				}
 				else {
 					term.pause();
 					ToadSpeaking(["Copiaste " + item_to_copy_name + " al directorio " + location_dir + "."]);					
 				}
 
-
+			}
+			else {
+				term.pause();
+				ToadSpeaking(["El archivo o el directorio no existe."]);
 			}
 	}
 

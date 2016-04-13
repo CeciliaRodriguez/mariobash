@@ -55,7 +55,7 @@ donkey_kong.addCommand("cat");
 //MUNDO NUBE
 var mundo_nube = new Room("mundo_nube",
      ("Lee el archivo <i>instrucciones.txt</i> para saber cómo ganar este mundo.  \n\n"  +
-     "<b>COMANDOS DEL MUNDO NUBE: MV, MKDIR, RM, SCP.</b>  \n\n"),
+     "<b>COMANDOS DEL MUNDO NUBE: MV, MKDIR, RMDIR.</b>  \n\n"),
      "mundo_nube.gif");
 mundo_nube.addItem(new Item("instrucciones.txt",
     "\nPara ganar este mundo deberás: \n\n" + "1. Mover cada moneda a la carpeta cofre (comando MV) \n" + "2. Crear una carpeta llamada estrellas (comando MKDIR) \n" 
@@ -112,8 +112,8 @@ mundo_hongo.addItem(new Item("instrucciones.txt",
     + "                        user: luigi\n"
     + "                        password: fusepasion\n"
     + "4. Copiarles el mensaje secreto al home de los usuarios Yoshi y Donkey Kong (comando CP) \n"
-    + "5. Una vez que hayas terminado, aparecerá Wario, y tendrás que eliminarlo\n" 
-    + "para que se habilite el mundo_desierto (comando RMDIR). \n\n" 
+    + "5. Una vez que hayas terminado, aparecerá Wario con un archivo adentro, y tendrás que eliminarlo\n" 
+    + "para que se habilite el mundo_desierto (comandos RM/RMDIR). \n\n" 
     + "Para saber cómo funciona cada uno de los comandos y sus argumentos\n"
     + "podés ejecutar 'man <comando>'.\n"
     + "Todos los elementos que necesitás para ganar este mundo se encuentran\n"
@@ -130,7 +130,7 @@ mundo_hongo.addItem(new Item("2.hongo_verde",
 mundo_hongo.addItem(new Item("3.hongo_verde",
     "snsjfnksanfalf",
     "mundo_nube.gif"));
-var vidas = new Room("vidas","dfs","kdnfos.gif");
+var vidas = new Room("vidas","","kdnfos.gif");
 
 mundo_hongo.addCommand("scp");
 mundo_hongo.addCommand("rm");
@@ -153,7 +153,7 @@ mundo_desierto.addItem(new Item("instrucciones.txt",
     + "2. Averiguar el nombre de la ruta donde hay que copiar la bomba, la misma se encuentra en la décima línea del mismo archivo (comando HEAD)\n" 
     + "3. Averiguar las credenciales de acceso al host donde está Koopa, las mismas están en la anteúltima línea del archivo koopa_ubicacion.txt (comando TAIL)\n"
     + "4. Una vez que hayas terminado, copiá la bomba indicando la ip del host, la ubicación donde copiar la bomba y las credenciales de acceso al host (comando SCP) \n\n" 
-    + "Cuando le hayas mandado la bomba, aparecerá en el mundo_desierto el directorio castillo, ingresá al mismo para encontrarte con Peach.\n"
+    + "Cuando le hayas mandado la bomba, se habilitará el acceso al directorio castillo en este mundo, ingresá al mismo para encontrarte con Peach.\n"
     + "Para saber cómo funciona cada uno de los comandos y sus argumentos podés ejecutar 'man <comando>'.\n"
     + "Todos los elementos que necesitás para ganar este mundo se encuentran justo aquí!. Chusmealos usando 'ls'.\n",
     "mundo_nube.gif"));
