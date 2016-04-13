@@ -55,7 +55,7 @@ donkey_kong.addCommand("cat");
 //MUNDO NUBE
 var mundo_nube = new Room("mundo_nube",
      ("Lee el archivo <i>instrucciones.txt</i> para saber cómo ganar este mundo.  \n\n"  +
-     "<b>COMANDOS DEL MUNDO NUBE: MV, MKDIR, RMDIR.</b>  \n\n"),
+     "<b>COMANDOS DEL MUNDO NUBE: mv, mkdir, rmdir.</b>  \n\n"),
      "mundo_nube.gif");
 mundo_nube.addItem(new Item("instrucciones.txt",
     "\nPara ganar este mundo deberás: \n\n" + "1. Mover cada moneda a la carpeta cofre (comando MV) \n" + "2. Crear una carpeta llamada estrellas (comando MKDIR) \n" 
@@ -91,7 +91,7 @@ var cofre = new Room("cofre",
 //MUNDO HONGO
 var mundo_hongo = new Room("mundo_hongo",
 "Lee el archivo <i>instrucciones.txt</i> para saber cómo ganar este mundo.  \n\n"  +
-     "<b>COMANDOS DEL MUNDO HONGO: RM, MV, SCP, CP, RMDIR.</b>  \n\n", "mundo_hogno.gif");
+     "<b>COMANDOS DEL MUNDO HONGO: rm, mv, scp, cp, rmdir.</b>  \n\n", "mundo_hogno.gif");
 
 var hongo_marron = new Item("1.hongo_marron","snsjfnksanfalf","mundo_nube.gif");
 hongo_marron.addValidCmd("rm");
@@ -146,7 +146,7 @@ mundo_hongo.removeCommand("cd");
 //MUNDO DESIERTO
 var mundo_desierto = new Room("mundo_desierto",
 "Lee el archivo <i>instrucciones.txt</i> para saber cómo ganar este mundo.  \n\n"  +
-     "<b>COMANDOS DEL MUNDO DESIERTO: GREP, HEAD, TAIL, SCP.</b>  \n\n", "mundo_hogno.gif");
+     "<b>COMANDOS DEL MUNDO DESIERTO: grep, head, tail, scp.</b>  \n\n", "mundo_hogno.gif");
 mundo_desierto.addItem(new Item("instrucciones.txt",
     "\nPara ganar este mundo deberás copiarle una bomba por SCP a Koopa, para esto necesitarás: \n\n" 
     + "1. Averiguar la IP del host donde está Koopa, la misma se encuentra en el archivo 'koopa_ubicacion.txt' al lado de la palabra koopa_ip (comando GREP) \n"
