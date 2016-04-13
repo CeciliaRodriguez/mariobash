@@ -410,7 +410,7 @@ Room.prototype.rm = function(args,term){
 		case 1:
 			var first_two_chars = args[0].charAt(0) + args[0].charAt(1);
 			if (first_two_chars == "*.") {
-					var type_of_file = [0].substr(2, args[0].length);
+					var type_of_file = args[0].substr(2, args[0].length);
 					var files_to_remove = this.itemStringArray().filter(is_type_of_file.bind(null,type_of_file));					
 					if (files_to_remove.length > 0) {
 						for (var j = 0; j < files_to_remove.length; j++) {
