@@ -84,7 +84,7 @@ $(document).ready(function() {
                     }         
         }
         else{
-            term.echo("Command '"+command+"' not found in room '"+current_room.room_name+"'");
+            term.echo(command+": No se encontró la orden.");
         }
     }, { history: true,                
         prompt: 'mario@utnso:~$ ',     
