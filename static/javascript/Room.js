@@ -216,6 +216,7 @@ Room.prototype.scp = function(args,term){
 
                         var history = term.history();
                         history.disable();
+                        term.set_mask(true);
                         term.push(function(command) {
                             if (command.match("tengoelpoder")) {
                                 term.echo('1.bomba                                 100%   217     0.2KB/s      00:00');
@@ -229,6 +230,7 @@ Room.prototype.scp = function(args,term){
                                 term.pop();
                                 history.enable();
                             }
+                        term.set_mask(false);
                         }, {
                             prompt: 'Password: '
                         });
@@ -238,6 +240,7 @@ Room.prototype.scp = function(args,term){
 
                         var history = term.history();
                         history.disable();
+                        term.set_mask(true);
                         term.push(function(command) {
                             if (command.match("fusepasion")) {
                                 term.echo('mensaje.txt                             100%   31      0.2KB/s      00:00');
@@ -251,8 +254,9 @@ Room.prototype.scp = function(args,term){
                             } else {
                                 term.echo('Contraseña incorrecta.')
                                 term.pop();
-                                history.enable();
+                                history.enable();                                
                             }
+                        term.set_mask(false);
                         }, {
                             prompt: 'Password: '
                         });
@@ -268,6 +272,7 @@ Room.prototype.scp = function(args,term){
 		ToadSpeaking["No podés ejecutar este comando en este directorio."];
 	}
 };
+
 
 
 Room.prototype.man = function(args,term){
