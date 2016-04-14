@@ -48,7 +48,21 @@ var man_pages = {
 "Por defecto se muestran las primeras 10 líneas, pero este número puede variar, según.\n\n"  +
 "como se ejecuten las opciones. Su sintaxis es la siguiente:\n\n" +
 "                   head -opciones archivo\n" +
-"Por ejemplo, head -8 file.txt mostrará las primeras ocho líneas de file.txt\n"
+"Por ejemplo, head -8 file.txt mostrará las primeras ocho líneas de file.txt\n",
+"cd": "\nEste comando se usa para cambiar de directorio. \n" + 
+"Generalmente cuando el usuario inicia sesión, el directorio donde comienza es su home.\n"  +
+"Desde ahí uno puede moverse a otros directorios donde se tenga acceso usando este comando.\n" +
+"Si se ejecuta 'cd ..' se vuelve un directorio atrás y 'cd' regresa al home del usuario.\n" +
+"Su sintaxis es la siguiente:\n\n" +
+"                   cd directorio\n\n",
+"ls": "\nEl comando ls sirve para listar el contenido de los directorios. \n" + 
+"Si se ejecuta sin ningún parámetro muestra el contenido del directorio actual.\n\n"  +
+"Su sintaxis es la siguiente:\n\n" +
+"                   ls -opciones directorio\n\n",
+"pwd": "\nEl comando pwd sirve para saber el directorio en el que estoy parado. \n" + 
+"También podemos saber esto mirando el prompt de la shell.\n\n"  +
+"Su sintaxis es la siguiente:\n\n" +
+"                   pwd\n\n"
 }
 
 $(document).ready(function() {
