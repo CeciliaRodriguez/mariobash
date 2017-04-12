@@ -4,7 +4,7 @@ function Room(roomname, introtext, roompic){
 	this.parents = [];
 	this.children = new Array();
 	this.items = new Array();
-	this.commands = ["cd", "ls", "cat", "man", "exit", "pwd"];
+	this.commands = ["cd", "ls", "cat", "man", "pwd"];
 	this.room_name = (typeof roomname === 'undefined') ? "Generic Room": roomname;
 	this.room_pic = (typeof roompic === 'undefined') ? "./static/img/none.gif": "./static/img/" + roompic;
 	this.intro_text = (typeof introtext === 'undefined') ? "": introtext;
