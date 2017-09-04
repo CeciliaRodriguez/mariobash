@@ -160,7 +160,7 @@ Room.prototype.cd = function(args, term){
 					break;
 				default:
 					var room = state.validate_route(args[0],this);
-					var room_from = current_room.room_name;					
+					var room_from = current_room.room_name;
 					if (room != false) {
 						if (room.commands.indexOf("cd") > -1){
 			                enterRoom(room);
@@ -172,16 +172,16 @@ Room.prototype.cd = function(args, term){
 						} else {
 							term.pause();
 							if (room.room_name === "castillo") {
-								ToadSpeaking(["No podés entrar al castillo hasta que no mates a koopa copiandole la bomba."]);	
+								ToadSpeaking(["No podés entrar al castillo hasta que no mates a koopa copiandole la bomba."]);
 							}
 							else {
-								ToadSpeaking(["Este mundo todavía no está habilitado. Para que se habilite ganá el mundo anterior."]);	
-							}													
+								ToadSpeaking(["Este mundo todavía no está habilitado. Para que se habilite ganá el mundo anterior."]);
+							}
 						}
 					}
 					else {
 						term.echo("bash: cd: " + args[0] + ": No existe el archivo o el directorio");
-					}										
+					}
 					break;
 			}
 			break;
@@ -235,7 +235,7 @@ Room.prototype.scp = function(args,term){
                             prompt: 'Password: '
                         });
 
-                    } else if ((args[0] === "luigi@192.168.0.5:/home/luigi/mensaje.txt") && 
+                    } else if ((args[0] === "luigi@192.168.0.5:/home/luigi/mensaje.txt") &&
                                 ((args[1] === "/home/mario/mundo_hongo")||args[1] === ".") && (current_room.room_name === "mundo_hongo")) {
 
                         var history = term.history();
@@ -254,7 +254,7 @@ Room.prototype.scp = function(args,term){
                             } else {
                                 term.echo('Contraseña incorrecta.')
                                 term.pop();
-                                history.enable();                                
+                                history.enable();
                             }
                         term.set_mask(false);
                         }, {
@@ -286,14 +286,14 @@ Room.prototype.man = function(args,term){
 		}
 		else {
 			term.echo("No existe entrada manual para " + args[0]);
-		}	
+		}
 	}
 };
 
 Room.prototype.mkdir = function(args,term){
 	if (this.commands.indexOf("mkdir") > 0){
 		if (args.length === 0){
-			term.echo("mkdir: falta un operando");	
+			term.echo("mkdir: falta un operando");
 		}
 		else {
 			for (var i = 0; i < args.length; i++){
@@ -305,9 +305,9 @@ Room.prototype.mkdir = function(args,term){
 				}
 				else {
 					term.echo("mkdir: no se puede crear el directorio "+ args[i] + ": el archivo ya existe\n");
-				}				
+				}
 			}
-		}		
+		}
 	}
 	else {
 		term.pause();
@@ -332,7 +332,11 @@ Room.prototype.ls = function(args,term){
 				term.echo(list_of_files);
 			}
 			else {
-				term.echo("ls: no se puede acceder a " + args[0] + ": No existe el archivo o el directorio");
+				if (args[0] == "") {
+					this.ls([],term);
+				} else{
+					term.echo("ls: no se puede acceder a " + args[0] + ": No existe el archivo o el directorio");
+				}
 			}
 			break;
 		default:
@@ -342,16 +346,16 @@ Room.prototype.ls = function(args,term){
 };
 
 Room.prototype.mv = function(args,term){
-	
+
 	if (args.length != 2){
 		term.echo("mv: falta el operando archivo de destino después de «" + args[0] + "»");
 	}
-	else {		
+	else {
 		var first_two_chars = args[0].charAt(0) + args[0].charAt(1);
 		if (first_two_chars == "*.") {
 				var type_of_file =  args[0].substr(2, args[0].length);
 				var files_to_remove = this.itemStringArray().filter(is_type_of_file.bind(null,type_of_file));
-				
+
 				if ((files_to_remove.length > 0) && (this.childrenStringArray().indexOf(args[1]) >= 0)) {
 					for (var i = 0; i < files_to_remove.length; i++) {
 					  	 itemtoadd = this.items[this.itemStringArray().indexOf(files_to_remove[i])];
@@ -362,29 +366,29 @@ Room.prototype.mv = function(args,term){
 						switch(this.room_name) {
 							case "mundo_nube":
 								state.applyState("EndMundoNube");
-								term.pause();								
+								term.pause();
 								ToadSpeaking(["Moviste todos los archivos ." + type_of_file + " a " + args[1] + ". Terminaste el primer mundo!, king boo aparecerá y deberás eliminarlo para desbloquear el próximo mundo."]);
 								break;
 							case "mundo_hongo":
 								state.applyState("EndMundoHongo");
 								term.pause();
 								ToadSpeaking(["Moviste todos los archivos ." + type_of_file + " a " + args[1] + ". Terminaste el mundo hongo!, wario aparecerá y deberás eliminarlo para desbloquear el mundo desierto."]);
-								break;		
-						}	
+								break;
+						}
 					}
-					term.pause();	
+					term.pause();
 					ToadSpeaking(["Moviste todos los archivos ." + type_of_file + " a " + args[1] + "."]);
 				}
 				else {
 					term.pause();
 					ToadSpeaking(["Elegí archivo/s y un directorio validos para moverlos."]);
 				}
-		}		
+		}
 		else {
-			var item_name_to_move = this.itemStringArray().indexOf(args[0]);			
-			if ((item_name_to_move >= 0) && (this.childrenStringArray().indexOf(args[1]) >= 0)){			
-			
-				itemtoadd = this.items[this.itemStringArray().indexOf(args[0])];			
+			var item_name_to_move = this.itemStringArray().indexOf(args[0]);
+			if ((item_name_to_move >= 0) && (this.childrenStringArray().indexOf(args[1]) >= 0)){
+
+				itemtoadd = this.items[this.itemStringArray().indexOf(args[0])];
 				this.children[this.childrenStringArray().indexOf(args[1])].addItem(itemtoadd);
 				this.removeItem(args[0]);
 				if (state.is_end_of_world(this)) {
@@ -394,12 +398,12 @@ Room.prototype.mv = function(args,term){
 							break;
 						case "mundo_hongo":
 							state.applyState("EndMundoHongo");
-							break;		
-					}	
+							break;
+					}
 				}
 				term.pause();
 				ToadSpeaking(["Moviste " + args[0] + " a " + args[1] + "."]);
-			}					
+			}
 			else {
 				term.echo("mv: no se puede efectuar ´stat´ sobre «" + args[0] +"»: No existe el archivo o el directorio","");
 			}
@@ -416,7 +420,7 @@ Room.prototype.rm = function(args,term){
 			var first_two_chars = args[0].charAt(0) + args[0].charAt(1);
 			if (first_two_chars == "*.") {
 					var type_of_file = args[0].substr(2, args[0].length);
-					var files_to_remove = this.itemStringArray().filter(is_type_of_file.bind(null,type_of_file));					
+					var files_to_remove = this.itemStringArray().filter(is_type_of_file.bind(null,type_of_file));
 					if (files_to_remove.length > 0) {
 						for (var j = 0; j < files_to_remove.length; j++) {
 						  	 this.removeItem(files_to_remove[j]);
@@ -427,7 +431,7 @@ Room.prototype.rm = function(args,term){
 					else {
 						term.echo("rm: no se puede borrar «" + args[i] + "»: No existe el archivo o el directorio\n");
 					}
-			}	
+			}
 			else {
 				if (this.getItemFromName(args[0]) != -1){
 					if (this.getItemFromName(args[0]).valid_cmds.indexOf("rm") > 0){
@@ -448,7 +452,7 @@ Room.prototype.rm = function(args,term){
 				this.rm([args[i]],term);
 			}
 			break;
-	}	
+	}
 };
 
 
@@ -461,38 +465,38 @@ Room.prototype.rmdir = function(args,term){
 			case 1:
 				if ((this.getChildFromName(args[0])) != -1) {
 						if (this.getChildFromName(args[0]).items.length > 0) {
-							term.echo("rmdir: fallo al borrar «" + args[0] + "»: El directorio no está vacío\n");	
+							term.echo("rmdir: fallo al borrar «" + args[0] + "»: El directorio no está vacío\n");
 						}
 						else {
 							this.removeChild(args[0]);
 							if ((args[0] == "king_boo") && this.room_name == "mundo_nube") {
 								this.ev.fire("KingBooRemoved");
-								term.pause();	
-								ToadSpeaking(["Eliminaste el directorio " + args[0] + ", se habilitó el mundo_hongo para que puedas jugarlo."]);						
+								term.pause();
+								ToadSpeaking(["Eliminaste el directorio " + args[0] + ", se habilitó el mundo_hongo para que puedas jugarlo."]);
 							}
 							else {
 								if ((args[0] == "wario") && this.room_name == "mundo_hongo") {
 									this.ev.fire("WarioRemoved");
 									term.pause();
-									ToadSpeaking(["Eliminaste el directorio " + args[0] + ", se habilitó el mundo_desierto para que puedas jugarlo."]);	
+									ToadSpeaking(["Eliminaste el directorio " + args[0] + ", se habilitó el mundo_desierto para que puedas jugarlo."]);
 								}
 								else {
 									term.pause();
-									ToadSpeaking(["Eliminaste el directorio " + args[0] + ". "]);									
+									ToadSpeaking(["Eliminaste el directorio " + args[0] + ". "]);
 								}
 							}
-						}					
+						}
 				}
 				else {
 					term.echo("rmdir: fallo al borrar «" + args[i] + "»: No existe el archivo o el directorio\n");
-				}		
+				}
 				break;
 			default:
 				for (var i = 0; i < args.length; i++){
 					this.rmdir([args[i]],term);
 				}
 				break;
-		}		
+		}
 	}
 	else {
 		term.pause();
@@ -514,7 +518,7 @@ Room.prototype.grep = function(args,term){
 	}
 	else {
 		term.pause();
-		ToadSpeaking["No podés ejecutar este comando en este directorio."];		
+		ToadSpeaking["No podés ejecutar este comando en este directorio."];
 	}
 };
 
@@ -542,9 +546,9 @@ Room.prototype.head = function(args,term){
 				term.echo(concat_first_n_lines(array_of_lines,number_of_lines));
 			}
 			else {
-				term.pause();		
-				ToadSpeaking(["Revisá la sintaxis de head consultando el man."]);		
-			} 
+				term.pause();
+				ToadSpeaking(["Revisá la sintaxis de head consultando el man."]);
+			}
 			break;
 		default:
 			term.pause();
@@ -579,9 +583,9 @@ Room.prototype.tail = function(args,term){
 				term.echo(concat_last_n_lines(array_of_lines,number_of_lines));
 			}
 			else {
-				term.pause();		
-				ToadSpeaking(["Revisá la sintaxis de tail consultando el man."]);		
-			} 
+				term.pause();
+				ToadSpeaking(["Revisá la sintaxis de tail consultando el man."]);
+			}
 			break;
 		default:
 			term.pause();
@@ -594,9 +598,9 @@ Room.prototype.tail = function(args,term){
 
 
 Room.prototype.cp = function(args,term){
-	
+
 	switch (args.length) {
-		
+
 		case 0:
 			term.echo("cp: falta un archivo como argumento");
 			break;
@@ -624,14 +628,14 @@ Room.prototype.cp = function(args,term){
 					switch(this.room_name) {
 						case "mundo_hongo":
 							state.applyState("EndMundoHongo");
-							break;		
+							break;
 					}
 					term.pause();
-					ToadSpeaking(["Copiaste " + item_to_copy_name + " al directorio " + location_dir + ". Wario aparecerá como directorio con un archivo adentro, eliminá el directorio para que se habilite el mundo desierto."]);		
+					ToadSpeaking(["Copiaste " + item_to_copy_name + " al directorio " + location_dir + ". Wario aparecerá como directorio con un archivo adentro, eliminá el directorio para que se habilite el mundo desierto."]);
 				}
 				else {
 					term.pause();
-					ToadSpeaking(["Copiaste " + item_to_copy_name + " al directorio " + location_dir + "."]);					
+					ToadSpeaking(["Copiaste " + item_to_copy_name + " al directorio " + location_dir + "."]);
 				}
 
 			}
@@ -663,16 +667,6 @@ Room.prototype.pwd = function(args,term){
     }
 };
 
-//VOLAR, VOLAR, VOLAR
-	
-/*Checks if arg can be reached from this room
-* Returns the room if it can
-* Returns false if it cannot
-*
-* 'arg' is a single node, not a path
-* i.e. Home.can_cd("next_room") returns true
-*      Home.can_cd("next_room/another_room") is invalid
-*/
 Room.prototype.can_cd = function(arg){
     //Don't allow for undefined or multiple paths
     if (arg == undefined || arg.indexOf("/") > -1){
